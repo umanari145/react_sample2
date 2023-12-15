@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 function App() {
 
   const players: Array<string> = ['kiyohara', 'ochiai']
 
+  const [inputValue, setInputValue] = useState<string>('defaultValue')
+
   const addTask = () => {
-    alert('本日は晴天也')
+    console.log(inputValue)
+    alert({inputValue})
   };
 
   return (
@@ -24,6 +27,8 @@ function App() {
 
       <input
           type="text"
+          value={inputValue}
+          onChange={(event) => {setInputValue(event.target.value)}}
           placeholder="Add a new task"
       />
       <button onClick={addTask}>追加</button>
