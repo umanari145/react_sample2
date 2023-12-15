@@ -1,0 +1,19 @@
+
+version: '3'
+services:
+  node:
+    container_name: r_s_node
+    build:
+        context: "./docker/node"
+        dockerfile: "Dockerfile"    
+    ports:
+      - 3000:3000
+    tty: true
+    volumes:
+      - .:/app
+    networks:
+      - r_s2_node
+
+networks:
+  r_s2_node:
+    driver: "bridge"
