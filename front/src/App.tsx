@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import { Button } from './libs/Button';
 import { Heading } from './libs/Heading';
+import { Password } from './libs/Password';
 import {Text} from './libs/Text';
 import { TextArea } from './libs/TextArea';
 
@@ -25,9 +26,13 @@ const App = () => {
         <span>Hello,word</span>
       </Heading>
       <Text text="Vゴウキ、Vナッシュ" />
-
+      
+      <Password />
+      <p>
       <TextArea width={500} maxLength={300} />
+      </p>
 
+      <p>
       <Button 
         title="normalButton" 
         onClick={()=>{ alert('normal')}}
@@ -46,6 +51,8 @@ const App = () => {
         type="error"
         width={500} 
       />
+      </p>
+      
       <ul>
         {/* Reactはforeach使わずmapでループを展開する*/}
         {players.map((player: string, index: number) => (
