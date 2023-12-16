@@ -1,6 +1,6 @@
 export const color = {
   red: '#F44336',
-  white: '#fff',
+  white: '#FFFFFF',
   black: '#000'
 }
 
@@ -17,7 +17,7 @@ export const space = {
 }
 
 export const fontSize  = {
-  s: '30px',
-  m: '40px',
-  l: '50px'
+  s: '10px',
+  m: '15px',
+  l: '20px'
 }
