@@ -23,6 +23,7 @@ export const Password:FC<Props> = () => {
   }, [handleKeyDown])
 
   return (
+    // React.Fragmentの略(ラッパーとしてのDOMをかかないといけない場合)
     <>
     <label>パスワード</label>
     <input 

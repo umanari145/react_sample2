@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import './App.css';
 import { Button } from './libs/Button';
+import { fontSize } from './libs/constants';
+import { ColorfulMessage } from './libs/constants/ColorfulMessage';
 import { Heading } from './libs/Heading';
 import { Password } from './libs/Password';
 import {Text} from './libs/Text';
@@ -10,18 +12,34 @@ const App = () => {
 
   const players: Array<string> = ['kiyohara', 'ochiai']
 
+
   // 以下のような関数を通さないと再レンダリングされない
-  // [入力用, セット用の関数] = 引数 
+  // [入力用, セット関数・・単純なsetter] = userState<型>初期値
   const [inputValue, setInputValue] = useState<string>('何も入れないとこの値が表示される')
+  const [num, setNum] = useState<number>(0)
 
   const addTask = () => {
     console.log(inputValue)
     alert(inputValue)
   };
 
+  const countUp = () => {
+    setNum(num + 1)
+  }
+
   return (
     <div className="App">
       <Heading tag="h1">見出し</Heading>
+      <h2 style={{ color:"red"} }>cssをあてる</h2>
+      <ColorfulMessage color="gray" message="PHP"/>
+      <ColorfulMessage color="red" message="JavaScript"/>
+      <ColorfulMessage color="green" message="Java"/>
+      {/** 以下のようにタグの中で挟むチルドレンという書き方もある Heading参照**/}
+      {/** <ColorfulMessage color="green">Java</ColorfulMessage>**/}
+
+      <button onClick={countUp}>カウントアップ</button>
+      <p>{num}</p>
+
       <Heading tag="h4">
         <span>Hello,word</span>
       </Heading>
@@ -53,6 +71,7 @@ const App = () => {
       />
       </p>
       
+
       <ul>
         {/* Reactはforeach使わずmapでループを展開する*/}
         {players.map((player: string, index: number) => (
@@ -69,6 +88,12 @@ const App = () => {
 
       <button onClick={addTask}>追加</button>
       <div>{inputValue}</div>
+
+      {/* {}内ではJavaScriptを動かせるということ */}
+      <button onClick={()=>{alert('本日は晴天なり')}}>追加</button>
+
+
+
     </div>
   );
 }
