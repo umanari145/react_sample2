@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import { Button } from './libs/Button';
 import { fontSize } from './libs/constants';
@@ -11,12 +11,16 @@ import { TextArea } from './libs/TextArea';
 const App = () => {
 
   const players: Array<string> = ['kiyohara', 'ochiai']
-
+  
+  {/* 再レンダリングされる場合 stateの更新とpropsの値が変わった時。また
+  親が再レンダリングされると子供も再レンダリングされる
+  */}
 
   // 以下のような関数を通さないと再レンダリングされない
   // [入力用, セット関数・・単純なsetter] = userState<型>初期値
   const [inputValue, setInputValue] = useState<string>('何も入れないとこの値が表示される')
   const [num, setNum] = useState<number>(0)
+  const [isShow, setIsShow] = useState<boolean>(false)
 
   const addTask = () => {
     console.log(inputValue)
@@ -26,6 +30,26 @@ const App = () => {
   const countUp = () => {
     setNum(num + 1)
   }
+
+  const onClickToggle = () =>{
+    setIsShow(!isShow);
+  }
+
+  /*Too many re-rendersはstateの更新から再レンダリングされる**
+    isShow がないとsetIsShowで再評価されて再レンダリングしてsetIsShowされる・・・
+  　という影響ループになってしまう
+   */
+
+  // 第二引数に変更があったときにuseEffectが動く
+  // 処理の関心を切り分けられる
+  useEffect(() => {
+    console.log('--useEffect--')
+    if (num % 3 === 0) {
+      isShow || setIsShow(true)
+    } else {
+      isShow && setIsShow(false)
+    }  
+  }, [num])   
 
   return (
     <div className="App">
@@ -39,6 +63,9 @@ const App = () => {
 
       <button onClick={countUp}>カウントアップ</button>
       <p>{num}</p>
+      
+      <button onClick={onClickToggle}>on/off</button>
+      {isShow && <p >ほげほげ</p>}
 
       <Heading tag="h4">
         <span>Hello,word</span>
