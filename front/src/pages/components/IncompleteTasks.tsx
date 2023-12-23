@@ -14,6 +14,9 @@ export const IncompleteTask:FC<Props> = ({
 }) => {
   return (
     <div>
+    {uncompleteTasks.length >= 5 && (
+      <p>すでに上限値に達しています。</p>  
+    )}   
     <div>ここから未完了タスクです。</div>  
     {uncompleteTasks.map((uncompleteTask: Task) => (
           /** 仮装DOMの差分を検知しやすくkeyを付与しないとダメ **/

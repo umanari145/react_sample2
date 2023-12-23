@@ -14,3 +14,17 @@ npm start ここでホットリロードができる
 
 http://localhost:3000/ でアクセスできる
 ```
+
+## ファイル構成
+- front
+  - public 公開ファイル
+  - src 
+    - class クラスファイル
+    - libs ライブラリ系のファイル パーツ系の部分
+    - pages routerでアクセスされる１ページ１ページ
+      - Basic.tsx 基本構文など
+      - Todo.tsx 
+      - MultiPulldown.tsx よくある二重プルダウンかつ動的追加系
+    - App.tsx Reactのapp部分
+    - index.tsx エントリーポイント
+
