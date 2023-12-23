@@ -1,20 +1,25 @@
 import { ChangeEvent, useState } from "react"
 import { Task, TaskStatusMap } from "../class/Task"
 import {v4 as uuid} from 'uuid';
+import { InputTodo } from "./components/InputTask";
+import { IncompleteTask } from "./components/IncompleteTasks";
+import { CompleteTask } from "./components/completeTask";
 
 export const Todo = () => {
 
-  const [taskName, setTaskName] = useState<string>(' ')
+  const [taskName, setTaskName] = useState<string>('')
 
   const [uncompleteTasks, setUncompleteTasks] = useState<Task[]>([])
   const [completeTasks, setCompleteTasks] = useState<Task[]>([])
 
   const addTask = () => {
+    if (taskName === '') return;
     const task: Task = new Task(uuid(), taskName, TaskStatusMap.UNCOMPLETE)
     // 下記のようにかいてもうごかないことに注意(状態変化をおこなうときにuseStateを使っていない)
     //uncompleteTasks.push(task)
     //setUncompleteTasks(uncompleteTasks)
-    setUncompleteTasks([...uncompleteTasks, task]); 
+    setUncompleteTasks([...uncompleteTasks, task]);
+    setTaskName('')
   }
 
   const deleteTask = (deleteTaskId:string) => {
@@ -45,42 +50,13 @@ export const Todo = () => {
     setUncompleteTasks([...uncompleteTasks, backTask!])
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTaskName(e.currentTarget.value)
-  }
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => (setTaskName(e.currentTarget.value))
 
   return (
     <>
-      <input type="text" value={taskName} onChange={(e)=>handleChange(e)}/>
-      <button onClick={addTask}>追加</button>
-
-      <div>
-        <div>ここから未完了タスクです。</div>  
-        {uncompleteTasks.map((uncompleteTask: Task) => {  
-            return (
-              <li key={uncompleteTask.id}>
-                  {uncompleteTask.name} 
-                  {/** 引数が必要なので()=>とする必要がある **/}
-                  <button onClick={()=> deleteTask(uncompleteTask.id)}>削除</button>
-                  <button onClick={()=> completeTask(uncompleteTask.id)}>完了</button>
-              </li>
-            )
-          }
-         )}
-       </div>
-
-       <div>
-         <div>ここから完了タスクです。</div>    
-           {completeTasks.map((completeTask: Task) => {  
-              return (
-                <li key={completeTask.id}>
-                  {completeTask.name}   
-                  <button onClick={()=> backTask(completeTask.id)}>戻す</button>
-                </li>
-              )
-            }
-           )}
-       </div>
+      <InputTodo taskName={taskName} addTask={addTask} handleChange={handleChange}/>
+      <IncompleteTask uncompleteTasks={uncompleteTasks} deleteTask={deleteTask} completeTask={completeTask} />
+      <CompleteTask completeTasks={completeTasks} backTask={backTask} />
     </>
   )
 }
