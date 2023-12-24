@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Basic } from './pages/Basic';
 import { MultiPulldown } from './pages/MultiPulldown';
+import { Price } from './pages/Price';
 import { Todo } from './pages/Todo';
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
         <Route path="basic" element={<Basic />} />
         <Route path="multipulldown" element={<MultiPulldown />} />
         <Route path="todo" element={<Todo />} />
+        <Route path="price" element={<Price />} />
       </Routes>
     </BrowserRouter>
   );
