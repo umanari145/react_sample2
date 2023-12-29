@@ -25,6 +25,8 @@ http://localhost:3000/ でアクセスできる
       - Basic.tsx 基本構文など
       - Todo.tsx 
       - MultiPulldown.tsx よくある二重プルダウンかつ動的追加系
+      - Price.tsx 動的な金額系のアプリ
+      - Markdown.tsx マークダウンエディタ
     - App.tsx Reactのapp部分
     - index.tsx エントリーポイント
 
