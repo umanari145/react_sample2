@@ -26,7 +26,7 @@ http://localhost:3000/ でアクセスできる
       - Todo.tsx 
       - MultiPulldown.tsx よくある二重プルダウンかつ動的追加系
       - Price.tsx 動的な金額系のアプリ
-      - Markdown.tsx マークダウンエディタ
+      - Markdown.tsx マークダウンエディタ (参考 React × TypeScript で手を動かながら学ぶ！モダンなフロントエンド開発入門 https://www.techpit.jp/courses/111 ) 
     - App.tsx Reactのapp部分
     - index.tsx エントリーポイント
 

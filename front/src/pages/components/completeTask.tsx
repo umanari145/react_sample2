@@ -1,24 +1,21 @@
-import { FC } from "react";
-import { Task } from "../../class/Task";
+import { FC } from 'react';
+import { Task } from '../../class/Task';
 
 type Props = {
-  completeTasks:Task[],
-  backTask:(backTaskId:string) => void,
-}  
+  completeTasks: Task[];
+  backTask: (backTaskId: string) => void;
+};
 
-export const CompleteTask:FC<Props> = ({
-    completeTasks,
-    backTask
-}) => {
+export const CompleteTask: FC<Props> = ({ completeTasks, backTask }) => {
   return (
     <div>
-      <div>ここから完了タスクです。</div>    
+      <div>ここから完了タスクです。</div>
       {completeTasks.map((completeTask: Task) => (
-           <li key={completeTask.id}>
-             {completeTask.name}   
-             <button onClick={()=> backTask(completeTask.id)}>戻す</button>
-           </li>
+        <li key={completeTask.id}>
+          {completeTask.name}
+          <button onClick={() => backTask(completeTask.id)}>戻す</button>
+        </li>
       ))}
     </div>
-  )    
-}
+  );
+};

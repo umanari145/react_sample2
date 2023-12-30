@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export const Header = styled.header`
   font-size: 1.5rem;
@@ -9,11 +9,11 @@ export const Header = styled.header`
   position: fixed;
   right: 0;
   top: 0;
-`
+`;
 
 export const H1 = styled.h1`
-  color:#FF0000;
-`
+  color: #ff0000;
+`;
 
 export const Wrapper = styled.div`
   bottom: 0;
@@ -21,20 +21,20 @@ export const Wrapper = styled.div`
   position: fixed;
   right: 0;
   top: 5rem;
-  display:flex;
-`
+  display: flex;
+`;
 
 export const TextArea = styled.textarea`
   border-right: 1px solid silver;
   border-top: 1px solid silver;
-  width:50%;
+  width: 50%;
   font-size: 1rem;
   padding: 0.5rem;
-`
+`;
 
 export const Preview = styled.div`
   border-top: 1px solid silver;
   overflow-y: scroll;
   padding: 1rem;
   width: 50%;
-`
+`;

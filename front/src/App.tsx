@@ -6,7 +6,6 @@ import { Price } from './pages/Price';
 import { Todo } from './pages/Todo';
 
 const App = () => {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -18,6 +17,6 @@ const App = () => {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
