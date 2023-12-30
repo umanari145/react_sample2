@@ -2,13 +2,16 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
   font-size: 1.5rem;
-  height: 10rem;
   left: 0;
   line-height: 1rem;
   padding: 0.5rem 1rem;
   position: fixed;
   right: 0;
   top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
 `;
 
 export const H1 = styled.h1`

@@ -1,21 +1,39 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Basic } from './pages/Basic';
-import { Markdown } from './pages/Markdown';
+import { Update as MarkdownUpdate } from './pages/Markdown/Update';
+import { Index as MarkdownIndex } from './pages/Markdown/Index';
 import { MultiPulldown } from './pages/MultiPulldown';
 import { Price } from './pages/Price';
 import { Todo } from './pages/Todo';
+import { createGlobalStyle } from 'styled-components';
+import { useStateWithStorage } from './hooks/useStateWithStorage';
+
+// 全体に適用
+const GlobalStyle = createGlobalStyle`
+  body * {
+    box-sizing: border-box;
+  }
+`;
 
 const App = () => {
+  const StorageKey = 'pages:markdown';
+  const [inputValue, setValue] = useStateWithStorage('', StorageKey);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="basic" element={<Basic />} />
-        <Route path="multipulldown" element={<MultiPulldown />} />
-        <Route path="todo" element={<Todo />} />
-        <Route path="price" element={<Price />} />
-        <Route path="markdown" element={<Markdown />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/basic" element={<Basic />} />
+          <Route path="/multipulldown" element={<MultiPulldown />} />
+          <Route path="/todo" element={<Todo />} />
+          <Route path="/price" element={<Price />} />
+          <Route path="/editor" element={<MarkdownUpdate defaultText={inputValue} />} />
+          {/** setValueを移管できるのだがうまく遷移できない・・・ **/}
+          <Route path="/history" element={<MarkdownIndex setValue={() => setValue} />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
