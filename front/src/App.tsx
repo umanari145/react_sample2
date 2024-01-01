@@ -7,6 +7,9 @@ import { Price } from './pages/Price';
 import { Todo } from './pages/Todo';
 import { createGlobalStyle } from 'styled-components';
 import { useStateWithStorage } from './hooks/useStateWithStorage';
+import { TopPage } from './pages/Youtube/TopPage';
+import { PlayerPage } from './pages/Youtube/PlayerPage';
+import { NotFoundPage } from './pages/Youtube/NotFoundPage';
 
 // 全体に適用
 const GlobalStyle = createGlobalStyle`
@@ -31,6 +34,9 @@ const App = () => {
           <Route path="/editor" element={<MarkdownUpdate defaultText={inputValue} />} />
           {/** setValueを移管できるのだがうまく遷移できない・・・ **/}
           <Route path="/history" element={<MarkdownIndex setValue={() => setValue} />} />
+          <Route path="/youtube/" Component={TopPage} />
+          <Route path="/youtube/:videId" Component={PlayerPage} />
+          <Route path="*" Component={NotFoundPage} />
         </Routes>
       </BrowserRouter>
     </>

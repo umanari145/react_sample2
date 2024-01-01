@@ -3,23 +3,45 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:storybook/recommended"
+  ],
   "parserOptions": {
     "ecmaVersion": 12,
     "sourceType": "module"
   },
   "rules": {
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
+    "indent": "off",
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
     "no-unused-vars": "off",
     "no-undef": "off",
     "no-console": "off",
     "no-debugger": "warn",
-    "eqeqeq": ["error", "always"],
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
     "curly": "error",
-    "brace-style": ["error", "1tbs"],
-    "array-bracket-spacing": ["error", "never"]
+    "brace-style": [
+      "error",
+      "1tbs"
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "never"
+    ]
   }
 }

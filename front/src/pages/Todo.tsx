@@ -12,7 +12,9 @@ export const Todo = () => {
   const [completeTasks, setCompleteTasks] = useState<Task[]>([]);
 
   const addTask = () => {
-    if (taskName === '') return;
+    if (taskName === '') {
+      return;
+    }
     const task: Task = new Task(uuid(), taskName, TaskStatusMap.UNCOMPLETE);
     // 下記のようにかいてもうごかないことに注意(状態変化をおこなうときにuseStateを使っていない)
     //uncompleteTasks.push(task)

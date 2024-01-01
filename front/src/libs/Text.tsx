@@ -9,7 +9,7 @@ type Props = {
 
 /*
 const {Component名} = styled.{タグ名}`
-　　　{スタイル定義}
+ {スタイル定義}
 `;
  */
 const Wrapper = styled.p`

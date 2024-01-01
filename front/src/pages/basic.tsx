@@ -37,7 +37,7 @@ export const Basic = () => {
 
   /*Too many re-rendersはstateの更新から再レンダリングされる**
       isShow がないとsetIsShowで再評価されて再レンダリングしてsetIsShowされる・・・
-  　という影響ループになってしまう
+  という影響ループになってしまう
       */
 
   // 第二引数に変更があったときにuseEffectが動く
