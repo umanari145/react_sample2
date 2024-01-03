@@ -11,11 +11,13 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.17",
     "@types/uuid": "^9.0.7",
+    "axios": "^1.6.3",
     "dexie": "^3.2.4",
     "express": "^4.18.2",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.0",
@@ -32,7 +34,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:3000",
   "eslintConfig": {
     "extends": [
       "react-app",

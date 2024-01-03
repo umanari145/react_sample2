@@ -134,3 +134,7 @@ https://qiita.com/fe_js_engineer/items/b052918f64b2df554d0f
 ```
 
 ```
+
+## react-spinners
+
+https://mhnpd.github.io/react-loader-spinner/
