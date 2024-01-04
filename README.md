@@ -127,6 +127,13 @@ express app
 app/直下にファイルがはかれるので、上に移動
 ```
 
+## env の使い方
+
+react ディフォルト
+https://zenn.dev/ryohei0509/articles/4612714e2a4c2d
+
+node(express)では dotenv を使う
+
 ## express &react 同時に起動
 
 https://qiita.com/fe_js_engineer/items/b052918f64b2df554d0f
@@ -138,3 +145,28 @@ https://qiita.com/fe_js_engineer/items/b052918f64b2df554d0f
 ## react-spinners
 
 https://mhnpd.github.io/react-loader-spinner/
+
+## mongo
+
+コマンド一覧
+
+https://qiita.com/tomy0610/items/ce45fa55dca10cb88083
+
+```
+// コンテナに入り以下のコマンド
+mongosh -u root -p pass
+
+// ファイル読み込み(mongoの外から打ちます)
+cd /docker-entrypoint-initdb.d
+mongosh < スクリプト.js
+
+// db一覧
+show dbs
+// dbにスイッチ
+use DB名
+
+// collection一覧
+show collections
+// collection一覧
+db.collection名.find()
+```

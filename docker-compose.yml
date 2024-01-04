@@ -14,6 +14,21 @@ services:
       - .:/app
     networks:
       - r_s2_node
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: r_s_mongo
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      TZ: Asia/Tokyo
+    networks:
+      - r_s2_node
 
 networks:
   r_s2_node:
