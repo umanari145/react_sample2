@@ -35,6 +35,10 @@ http://localhost:3000/ でアクセスできる
 
 - routes API のルーティング
 - app.js express のエントリーポイント
+- load_data_area.js 12 万件の郵便番号を一括読み込み
+- load_data_pref.js 都道府県の一括読み込み
+- load_data.js 大量データ読み込み処理(mongoose では読み込めない)
+- db.js mongo 接続
 
 ## IndexedDB について
 
@@ -169,4 +173,24 @@ use DB名
 show collections
 // collection一覧
 db.collection名.find()
+
+db.createUser({
+  user: "test_user",
+  pwd: "password",
+  roles: [{ role: "read", db: "city" }],
+});
+
+db.createUser({user:"test_user", pwd:"password", roles:[{role:"dbOwner", db:"city"}]})
+
+
 ```
+
+mongo & express
+
+https://zenn.dev/himorishige/articles/5084aab24c9f35
+
+https://github.com/himorishige/techBlog-backend
+
+Express の非同期処理
+
+https://ishikawa-pro.hatenablog.com/entry/2020/06/23/100920
