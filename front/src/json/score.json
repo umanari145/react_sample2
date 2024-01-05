@@ -1,0 +1,26 @@
+{
+  "pref": [
+    {
+      "code": "11",
+      "name": "東京"
+    },
+    {
+      "code": "12",
+      "name": "千葉"
+    },
+    {
+      "code": "13",
+      "name": "神奈川"
+    }
+  ],
+  "style": [
+    {
+      "code": "permanent",
+      "name": "正社員"
+    },
+    {
+      "code": "temporary",
+      "name": "アルバイト"
+    }
+  ]
+}

@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
   try {
     const connection = await mongoose.connect(
-      "mongodb://test_user:password@mongo:27017/city"
+      //db名が統一されていないので、ハードコーディングでかえるcity or score
+      "mongodb://test_user:password@mongo:27017/score"
     );
     console.log(`MongoDB Connected ${connection.connection.host}`);
   } catch (error) {

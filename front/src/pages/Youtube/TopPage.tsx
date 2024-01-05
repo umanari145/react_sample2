@@ -2,7 +2,6 @@ import { FC, ChangeEvent, useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
 import { Area } from '../../class/Area';
-import { bool } from 'prop-types';
 
 const Wrapper = styled.div`
   width: 100%;

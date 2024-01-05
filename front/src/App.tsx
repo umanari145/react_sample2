@@ -10,6 +10,7 @@ import { useStateWithStorage } from './hooks/useStateWithStorage';
 import { TopPage } from './pages/Youtube/TopPage';
 import { PlayerPage } from './pages/Youtube/PlayerPage';
 import { NotFoundPage } from './pages/Youtube/NotFoundPage';
+import { Score } from './pages/Score';
 
 // 全体に適用
 const GlobalStyle = createGlobalStyle`
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/history" element={<MarkdownIndex setValue={() => setValue} />} />
           <Route path="/youtube/" Component={TopPage} />
           <Route path="/youtube/:videId" Component={PlayerPage} />
+          <Route path="/score" Component={Score} />
           <Route path="*" Component={NotFoundPage} />
         </Routes>
       </BrowserRouter>
