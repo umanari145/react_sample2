@@ -35,10 +35,10 @@ http://localhost:3000/ でアクセスできる
 
 - routes API のルーティング
 - app.js express のエントリーポイント
-- load_data_area.js 12 万件の郵便番号を一括読み込み
-- load_data_pref.js 都道府県の一括読み込み
-- load_data.js 大量データ読み込み処理(mongoose では読み込めない)
-- db.js mongo 接続
+- load_data_area.js 12 万件の郵便番号を一括読み込み `node load_data_area.js`
+- load_data_pref.js 都道府県の一括読み込み`node load_data_pref.js`
+- load_data.js 大量データ読み込み処理(mongoose では読み込めない) `node load_data.js`
+- db.js mongo の 接続
 
 ## IndexedDB について
 
@@ -158,6 +158,7 @@ https://qiita.com/tomy0610/items/ce45fa55dca10cb88083
 
 ```
 // コンテナに入り以下のコマンド
+// ルートユーザー root / pass
 mongosh -u root -p pass
 
 // ファイル読み込み(mongoの外から打ちます)
@@ -173,12 +174,6 @@ use DB名
 show collections
 // collection一覧
 db.collection名.find()
-
-db.createUser({
-  user: "test_user",
-  pwd: "password",
-  roles: [{ role: "read", db: "city" }],
-});
 
 db.createUser({user:"test_user", pwd:"password", roles:[{role:"dbOwner", db:"city"}]})
 

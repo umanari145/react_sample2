@@ -7,7 +7,6 @@ const router = express.Router();
 router.get("/prefectures", async (req, res, next) => {
   try {
     const result = await Pref.find();
-    console.log(result);
     res.json(result);
   } catch (error) {
     console.log(error);
@@ -15,10 +14,12 @@ router.get("/prefectures", async (req, res, next) => {
   }
 });
 
-router.get("/zip", async (req, res, next) => {
+router.get("/zip/:zip", async (req, res, next) => {
   try {
-    const result = await Area.find({ zip: "2740077" }).limit(10);
-    console.log(result);
+    const { zip } = req.params;
+    const result = await Area.find({
+      zip: { $regex: `^${zip}`, $options: "i" },
+    });
     res.json(result);
   } catch (error) {
     console.log(error);
