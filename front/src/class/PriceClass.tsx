@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export const DiscountTypeMap = {
   PRICE: '1',
   RATE: '2',
@@ -83,4 +85,36 @@ export class PriceClass {
         return this._retailPrice;
     }
   }
+
+  public triggerVale = (field: keyof PriceClass, value: string) => {
+    switch (field) {
+      case 'discountType':
+        this._discountType = value;
+        // 変更段階である程度
+        switch (this._discountType) {
+          case DiscountTypeMap.PRICE:
+            this._discountRate = undefined;
+            break;
+          case DiscountTypeMap.RATE:
+            this._discountPrice = undefined;
+            break;
+          case DiscountTypeMap.NONE:
+            this._discountRate = undefined;
+            this._discountPrice = undefined;
+            break;
+        }
+        break;
+      case 'discountPrice': {
+        const price = _.isNaN(value) === false ? parseInt(value) : undefined;
+        this._discountPrice =
+          price !== undefined && price > 0 && price < (this._retailPrice || 0) ? price : undefined;
+        break;
+      }
+      case 'discountRate': {
+        const rate = _.isNaN(value) === false ? parseInt(value) : undefined;
+        this._discountRate = rate !== undefined && rate > 0 && rate < 100 ? rate : undefined;
+        break;
+      }
+    }
+  };
 }

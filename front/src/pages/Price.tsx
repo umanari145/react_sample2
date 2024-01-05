@@ -3,20 +3,32 @@ import { v4 as uuid } from 'uuid';
 import { DiscountType, DiscountTypeMap, PriceClass } from '../class/PriceClass';
 import * as _ from 'lodash';
 import { EachPrice } from './components/EachPrice';
+import { SampleComponent } from './components/SampleComponent';
 
 export const Price = () => {
   const standardPrice = new PriceClass(uuid(), 1000, DiscountTypeMap.NONE);
 
   const [priceClasses, setPriceClasses] = useState<PriceClass[]>([standardPrice]);
+  const [sampVal, setSampVal] = useState<string>('');
 
   const handleChange = (
     priceClassId: string,
     field: keyof PriceClass,
     e: ChangeEvent<HTMLInputElement>
   ) => {
-    const targetPriceClass = priceClasses.find(
-      (priceClass: PriceClass) => priceClass.id === priceClassId
-    );
+    const updatedPriceClasses = priceClasses.map((priceClass: PriceClass) => {
+      if (priceClass.id === priceClassId) {
+        priceClass.triggerVale(field, e.currentTarget.value);
+      }
+      return priceClass;
+    });
+    setPriceClasses(updatedPriceClasses);
+  };
+
+  // 実験的
+  const handleChange2 = (message: string, e: ChangeEvent<HTMLInputElement>) => {
+    setSampVal(e.currentTarget.value);
+    console.log(message);
   };
 
   return (
@@ -25,10 +37,13 @@ export const Price = () => {
       <ul>
         {priceClasses.map((priceClass: PriceClass) => (
           <li key={priceClass.id}>
-            <EachPrice priceClass={priceClass} handleChange={(e) => handleChange} />
+            <EachPrice priceClass={priceClass} handleChange={handleChange} />
           </li>
         ))}
       </ul>
+      {/* 子供に値を与える */}
+      <SampleComponent value={sampVal} handleChange={handleChange2} />
+      {sampVal}
     </>
   );
 };

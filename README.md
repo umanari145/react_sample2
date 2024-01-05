@@ -29,7 +29,7 @@ http://localhost:3000/ でアクセスできる
       - MultiPulldown.tsx よくある二重プルダウンかつ動的追加系
       - Price.tsx 動的な金額系のアプリ
       - Markdown.tsx マークダウンエディタ (参考 React × TypeScript で手を動かながら学ぶ！モダンなフロントエンド開発入門 https://www.techpit.jp/courses/111 )
-      - Youtube 【React + Atomic Design】作りながら学ぶ！コンポーネント指向開発[https://www.techpit.jp/courses/109/]
+      - Youtube 【React + Atomic Design】作りながら学ぶ！コンポーネント指向開発[https://www.techpit.jp/courses/109/]→ 途中から郵便番号
     - App.tsx React の app 部分
     - index.tsx エントリーポイント
 
