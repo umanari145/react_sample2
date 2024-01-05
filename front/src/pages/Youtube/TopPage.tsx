@@ -1,7 +1,8 @@
 import { FC, ChangeEvent, useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import axios from 'axios';
-import { Video } from '../../class/Video';
+import { Area } from '../../class/Area';
+import { bool } from 'prop-types';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -26,6 +27,10 @@ const SearchForm = styled.div`
 const VideosList = styled.div`
   max-width: 720px;
   margin: auto;
+  list-style: none;
+  li {
+    margin-top: 10px;
+  }
 `;
 
 const rotate = keyframes`
@@ -47,56 +52,83 @@ const Loading = styled.div`
 `;
 
 export const TopPage = () => {
-  const [keyword, setKeyword] = useState<string>('');
-  const [videoList, setVideoList] = useState<Video[]>([]);
+  const [zip, setZip] = useState<string>('');
+  const [areaList, setAreaList] = useState<Area[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isDisps, setIsDisps] = useState<string[]>([]);
 
   useEffect(() => {
-    getVideo();
-  }, [keyword]);
+    getArea();
+  }, [zip]);
 
-  const getVideo = async () => {
-    if (!keyword) {
-      setVideoList([]);
+  const getArea = async () => {
+    if (!zip || zip.length < 5) {
+      setAreaList([]);
       return;
     }
 
+    setLoading(true);
+    setIsDisps([]);
     try {
       // package.jsonでproxyで定義しておき、かつここを相対URLにしておくことでCORSのエラーが発生しない
       // 直書きでhttp://localhost:3000/api・・とかくとCORSエラーが発生
 
-      // 分割代入 APIのレスポンスが以下のようになっているがdataのitemsとnextPageTokenだけ欲しいため
+      // 分割代入 例えばAPIのレスポンスが以下のようになっているはdataのareasとstatusだけ欲しいため
       // config
-      // data:{items, nextPageToken}
+      // {data, status}
       // headers
       // request
       // status
-      const {
-        data: { items, nextPageToken },
-      } = await axios.get(`/api/videos/search/${keyword}`);
+      const { data, status } = await axios.get(`/api/zip/${zip}`);
       // console.dir(items, { depth: null });
-      setVideoList(items);
+      // console.log(data);
+      console.log(status);
+      setAreaList(data);
     } catch (error) {
       console.error('Error fetching data: ', error);
-      setVideoList([]);
+      setAreaList([]);
     }
+    setLoading(false);
+  };
+
+  const handleMouseEnter = (area_id: string) => {
+    // 本体に突っ込む
+    setIsDisps([...isDisps, area_id]);
+  };
+
+  const handleMouseLeave = (area_id: string) => {
+    // 自分を除去してセット
+    setIsDisps(isDisps.filter((inc_area_id) => inc_area_id !== area_id));
   };
 
   return (
     <>
-      <Loading />
+      {loading && <Loading />}
       <Wrapper>
         <HeadLine1> This is Top page!</HeadLine1>
         <Header>header</Header>
         <SearchForm>
-          <input value={keyword} onChange={(e) => setKeyword(e.currentTarget.value)} />
-          <button onClick={() => getVideo()}>検索</button>
+          <div>
+            郵便番号:
+            <input value={zip} onChange={(e) => setZip(e.currentTarget.value)} />
+          </div>
         </SearchForm>
-        {videoList && (
+        {areaList && (
           <VideosList>
-            {videoList.map((video: Video) => (
-              <li key={video.id}>
-                <h3>{video.snippet.title}</h3>
-                <div>{video.snippet.description}</div>
+            {areaList.map((area: Area) => (
+              <li key={area._id}>
+                <div
+                  onMouseEnter={() => handleMouseEnter(area._id)}
+                  onMouseLeave={() => handleMouseLeave(area._id)}
+                >
+                  {area.zip}
+                </div>
+                {isDisps.includes(area._id) && (
+                  <div>
+                    {area.pref} {area.city} {area.town} ({area.pref_kana} {area.city_kana}{' '}
+                    {area.town_kana})
+                  </div>
+                )}
               </li>
             ))}
           </VideosList>

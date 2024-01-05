@@ -167,7 +167,7 @@ mongosh < スクリプト.js
 
 // db一覧
 show dbs
-// dbにスイッチ
+// dbにスイッチ(かつもしなければ作成)
 use DB名
 
 // collection一覧
@@ -175,6 +175,7 @@ show collections
 // collection一覧
 db.collection名.find()
 
+// use DBしてないと権限が正常に反映されない
 db.createUser({user:"test_user", pwd:"password", roles:[{role:"dbOwner", db:"city"}]})
 
 
