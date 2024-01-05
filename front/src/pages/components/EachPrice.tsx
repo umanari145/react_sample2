@@ -13,7 +13,10 @@ type Props = {
 export const EachPrice: FC<Props> = ({ priceClass, handleChange }) => {
   return (
     <ul>
-      <li>通常販売価格 {priceClass.calcDiscountedPrice()}</li>
+      <li>
+        <h2>{priceClass.priceName}</h2>
+      </li>
+      <li>販売価格 {priceClass.calcDiscountedPrice()}</li>
       <li>
         <input
           type="radio"

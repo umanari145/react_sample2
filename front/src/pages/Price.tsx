@@ -6,9 +6,15 @@ import { EachPrice } from './components/EachPrice';
 import { SampleComponent } from './components/SampleComponent';
 
 export const Price = () => {
-  const standardPrice = new PriceClass(uuid(), 1000, DiscountTypeMap.NONE);
+  const standardPrice = new PriceClass(uuid(), '通常価格', 1000, DiscountTypeMap.NONE);
+  const sale1Price = new PriceClass(uuid(), '割安価格', 1000, DiscountTypeMap.NONE);
+  const sale2Price = new PriceClass(uuid(), '激安価格', 1000, DiscountTypeMap.NONE);
 
-  const [priceClasses, setPriceClasses] = useState<PriceClass[]>([standardPrice]);
+  const [priceClasses, setPriceClasses] = useState<PriceClass[]>([
+    standardPrice,
+    sale1Price,
+    sale2Price,
+  ]);
   const [sampVal, setSampVal] = useState<string>('');
 
   const handleChange = (
@@ -28,7 +34,6 @@ export const Price = () => {
   // 実験的
   const handleChange2 = (message: string, e: ChangeEvent<HTMLInputElement>) => {
     setSampVal(e.currentTarget.value);
-    console.log(message);
   };
 
   return (

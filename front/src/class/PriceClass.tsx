@@ -10,6 +10,7 @@ export type DiscountType = (typeof DiscountTypeMap)[keyof typeof DiscountTypeMap
 
 export class PriceClass {
   private _id: string;
+  private _priceName: string;
   private _retailPrice: number;
   private _discountType: DiscountType;
   private _discountPrice: number | undefined;
@@ -17,12 +18,14 @@ export class PriceClass {
 
   constructor(
     id: string,
+    priceName: string,
     retailPrice: number,
     discountType: DiscountType,
     discountPrice?: number | undefined,
     discountRate?: number | undefined
   ) {
     this._id = id;
+    this._priceName = priceName;
     this._retailPrice = retailPrice;
     this._discountType = discountType;
     this._discountPrice = discountPrice;
@@ -36,6 +39,14 @@ export class PriceClass {
 
   set id(id: string) {
     this._id = id;
+  }
+
+  get priceName(): string {
+    return this._priceName;
+  }
+
+  set priceName(priceName: string) {
+    this._priceName = priceName;
   }
 
   get retailPrice(): number {
