@@ -30,6 +30,7 @@ http://localhost:3000/ でアクセスできる
       - Price.tsx 動的な金額系のアプリ
       - Markdown.tsx マークダウンエディタ (参考 React × TypeScript で手を動かながら学ぶ！モダンなフロントエンド開発入門 https://www.techpit.jp/courses/111 )
       - Youtube 【React + Atomic Design】作りながら学ぶ！コンポーネント指向開発[https://www.techpit.jp/courses/109/]→ 途中から郵便番号
+      - Score 成績のフィルタリング
     - App.tsx React の app 部分
     - index.tsx エントリーポイント
 
@@ -37,6 +38,7 @@ http://localhost:3000/ でアクセスできる
 - app.js express のエントリーポイント
 - load_data_area.js 12 万件の郵便番号を一括読み込み `node load_data_area.js`
 - load_data_pref.js 都道府県の一括読み込み`node load_data_pref.js`
+- load_data_score.js 成績の一括読み込み`node load_data_score.js`
 - load_data.js 大量データ読み込み処理(mongoose では読み込めない) `node load_data.js`
 - db.js mongo の 接続
 
