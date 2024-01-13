@@ -36,10 +36,9 @@ http://localhost:3000/ でアクセスできる
 
 - routes API のルーティング
 - app.js express のエントリーポイント
-- load_data_area.js 12 万件の郵便番号を一括読み込み `node load_data_area.js`
-- load_data_pref.js 都道府県の一括読み込み`node load_data_pref.js`
-- load_data_score.js 成績の一括読み込み`node load_data_score.js`
-- load_data.js 大量データ読み込み処理(mongoose では読み込めない) `node load_data.js`
+- load_data.js area:12 万件 pref:都道府県 score:成績 `node load_data.js (area|pref|score)`
+- load_data_bulk.js 大量データ読み込み処理(mongoose では読み込めない) `node load_data_bulk.js`
+- dummy_generator.js score の成績データを一括作成`node dummy_generator.js`
 - db.js mongo の 接続
 
 ## IndexedDB について
@@ -145,6 +144,15 @@ node(express)では dotenv を使う
 https://qiita.com/fe_js_engineer/items/b052918f64b2df554d0f
 
 ```
+  "scripts": {
+    "start": "node ./bin/www",
+    "server": "nodemon ./bin/www",
+    "client": "PORT=3002 npm start --prefix front",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
+  },
+
+上記のclinetでreact側のportをうける
+npm run dev
 
 ```
 

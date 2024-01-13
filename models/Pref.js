@@ -5,5 +5,5 @@ const PrefSchema = new mongoose.Schema({
   name: String,
 });
 
-const Prea = mongoose.model("Pref", PrefSchema);
-module.exports = Prea;
+const Pref = mongoose.model("Pref", PrefSchema);
+module.exports = Pref;

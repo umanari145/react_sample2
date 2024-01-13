@@ -37,7 +37,7 @@ const generateCSV = () => {
 
 const csvData = generateCSV();
 
-fs.writeFile("employee.csv", csvData, (err) => {
+fs.writeFile("./csv/score.csv", csvData, (err) => {
   if (err) throw err;
-  console.log("サンプルデータがemployee.csvに書き込まれました。");
+  console.log("サンプルデータがscore.csvに書き込まれました。");
 });
