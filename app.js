@@ -7,6 +7,7 @@ require("dotenv").config();
 var indexRouter = require("./routes/index");
 var areaRouter = require("./routes/area");
 var scoreRouter = require("./routes/score");
+var loggerRouter = require("./routes/logger");
 const connectDB = require("./db");
 var app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/api", loggerRouter);
 app.use("/api", areaRouter);
 app.use("/api", scoreRouter);
 

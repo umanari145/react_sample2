@@ -18,7 +18,6 @@ http://localhost:3000/ でアクセスできる
 
 - bin サーバー
 - front
-
   - public 公開ファイル
   - src
     - class クラスファイル
@@ -33,7 +32,8 @@ http://localhost:3000/ でアクセスできる
       - Score 成績のフィルタリング
     - App.tsx React の app 部分
     - index.tsx エントリーポイント
-
+- lib
+  - logger.js pino/pino-pretty を使ったログのカスタマイズ
 - routes API のルーティング
 - app.js express のエントリーポイント
 - load_data.js area:12 万件 pref:都道府県 score:成績 `node load_data.js (area|pref|score)`
