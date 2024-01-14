@@ -200,3 +200,10 @@ https://github.com/himorishige/techBlog-backend
 Express の非同期処理
 
 https://ishikawa-pro.hatenablog.com/entry/2020/06/23/100920
+
+## jest(テストフレームワーク)
+
+- `__test__`というディレクトリに配置しないとダメ
+- ファイル名は.test.拡張子でないとだめ
+- テストコマンドは`npx jest ファイル`
+- https://go-tech.blog/nodejs/ts-jest-environment/#index_id11 テストケースの書き方について
