@@ -7,4 +7,5 @@ test("division", () => {
   expect(division(1)).toBe("not ２、３、５の倍数");
   // exceptionの場合、下記のようにかく
   expect(() => division("aaa")).toThrow(TypeError);
+  expect(() => division("aaa")).toThrowError(/^数値ではありません。$/);
 });

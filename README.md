@@ -206,4 +206,6 @@ https://ishikawa-pro.hatenablog.com/entry/2020/06/23/100920
 - `__test__`というディレクトリに配置しないとダメ
 - ファイル名は.test.拡張子でないとだめ
 - テストコマンドは`npx jest ファイル`
-- https://go-tech.blog/nodejs/ts-jest-environment/#index_id11 テストケースの書き方について
+- テストケースの書き方について
+  - https://go-tech.blog/nodejs/ts-jest-environment/#index_id11
+  - https://www.crunchtimer.jp/blog/18851

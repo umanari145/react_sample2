@@ -1,6 +1,6 @@
 const express = require("express");
-const Area = require("../models/Area");
 const Pref = require("../models/Pref");
+const getArea = require("../service/area");
 const router = express.Router();
 
 /* GET users listing. */
@@ -17,9 +17,7 @@ router.get("/prefectures", async (req, res, next) => {
 router.get("/zip/:zip", async (req, res, next) => {
   try {
     const { zip } = req.params;
-    const result = await Area.find({
-      zip: { $regex: `^${zip}`, $options: "i" },
-    });
+    const result = await getArea(zip);
     res.json(result);
   } catch (error) {
     console.log(error);
