@@ -201,6 +201,12 @@ Express の非同期処理
 
 https://ishikawa-pro.hatenablog.com/entry/2020/06/23/100920
 
+## mongo-express
+
+`http://localhost:8081/` で確認
+
+最初の Basic 認証は`admin/pass`
+
 ## jest(テストフレームワーク)
 
 - `__test__`というディレクトリに配置しないとダメ

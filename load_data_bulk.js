@@ -2,7 +2,7 @@ const fs = require("fs");
 const csvtojson = require("csvtojson");
 const { MongoClient } = require("mongodb");
 
-const csvFilePath = "KEN_ALL.CSV"; // CSVファイルのパスを指定
+const csvFilePath = "./csv/KEN_ALL.CSV"; // CSVファイルのパスを指定
 const databaseUrl = "mongodb://root:pass@mongo:27017"; // MongoDBの接続URLを指定 mongodb://ユーザー名:パスワード@サーバー名:port
 const databaseName = "city"; // データベース名を指定
 const collectionName = "area"; // コレクション名を指定
