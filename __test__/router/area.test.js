@@ -3,8 +3,8 @@ const connectDB = require("../../db");
 const request = require("supertest");
 const app = require("../../app");
 
-jest.mock("../../service/area");
-jest.mock("../../db");
+jest.mock("../../service/area", () => jest.fn());
+jest.mock("../../db", () => jest.fn());
 
 const mockData = [
   {
