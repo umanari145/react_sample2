@@ -182,7 +182,7 @@ use DB名
 
 // collection一覧
 show collections
-// collection一覧
+// データ
 db.collection名.find()
 
 // use DBしてないと権限が正常に反映されない

@@ -11,7 +11,7 @@ var loggerRouter = require("./routes/logger");
 const connectDB = require("./db");
 var app = express();
 
-connectDB();
+// connectDB();
 
 app.use(logger("dev"));
 app.use(express.json());
