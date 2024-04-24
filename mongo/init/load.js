@@ -1,5 +1,17 @@
-// 新しいデータベースに接続（存在しない場合は作成されます）
-db = connect("mongodb://localhost:27017/sample_db");
+db = connect("mongodb://root:pass@localhost:27017/admin");
+
+// エラーはでるが正常に当路なn巣荒れている
+db.createUser({
+  user: "myUser",
+  pwd: "myPassword123",
+  roles: [{ role: "readWrite", db: "sample_db" }],
+});
+
+db = db.getSiblingDB("sample_db");
+
+// mynewdatabaseに接続
+// エラーはでているが正常に登録されている
+db = connect("mongodb://myUser:myPassword123@localhost:27017/sample_db");
 
 // ユーザー情報を挿入する新しいコレクションを用意
 db.createCollection("users");
