@@ -173,7 +173,7 @@ mongosh -u root -p pass
 
 // ファイル読み込み(mongoの外から打ちます)
 cd /docker-entrypoint-initdb.d
-mongosh < スクリプト.js
+mongosh < スクリプト.js -u root -p pass
 
 // db一覧
 show dbs
