@@ -40,6 +40,7 @@ const App = () => {
           <Route path="/youtube/:videId" Component={PlayerPage} />
           <Route path="/score" Component={Score} />
           <Route path="/context" Component={Context} />
+          <Route path="/form" Component={Context} />
           <Route path="*" Component={NotFoundPage} />
         </Routes>
       </BrowserRouter>
