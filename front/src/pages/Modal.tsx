@@ -21,10 +21,10 @@ export const Modal = () => {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
 
   useEffect(() => {
-    getMember();
+    getPrefs();
   }, []);
 
-  const getMember = async () => {
+  const getPrefs = async () => {
     try {
       const {data, status} = await axios.get('http://57.182.154.123/api/prefs');
       if (status === 200 && data.success === true) {
@@ -35,7 +35,10 @@ export const Modal = () => {
       setPrefs([]);
     }
   };
-  console.log(prefs);
+
+  const selectCity = (pref_code:string) => {
+    console.log(pref_code);
+  };
 
   return (
     <>
@@ -49,11 +52,14 @@ export const Modal = () => {
                 className="peer hidden" 
                 type="radio" 
                 name="pref_select"
+                value={pref.pref_code}
                 id={`pref-${pref.pref_code}`}
               />
               <label 
                 htmlFor ={`pref-${pref.pref_code}`}
-                className="inline-block w-36 px-8 py-4 text-center bg-white border-2 border-gray-300 rounded-lg cursor-pointer transition-all hover:border-green-400 peer-checked:bg-green-500 peer-checked:text-white peer-checked:border-green-500 peer-checked:scale-105 font-medium">
+                className="inline-block w-24 px-2 py-2 text-center bg-white border-2 border-gray-300 rounded-lg cursor-pointer transition-all hover:border-green-400 peer-checked:bg-green-500 peer-checked:text-white peer-checked:border-green-500 peer-checked:scale-105 font-medium"
+                onClick={()=>selectCity(pref.pref_code)}
+              >
                 {pref.pref_name}
               </label>
             </li>
