@@ -12,7 +12,7 @@ import { PlayerPage } from './pages/Youtube/PlayerPage';
 import { NotFoundPage } from './pages/Youtube/NotFoundPage';
 import { Score } from './pages/Score';
 import { Context } from './pages/Context';
-import { Modal } from './pages/Modal';
+import { PrefSelect } from './pages/PrefSelect';
 
 // 全体に適用
 const GlobalStyle = createGlobalStyle`
@@ -40,7 +40,7 @@ const App = () => {
           <Route path="/youtube/" Component={TopPage} />
           <Route path="/youtube/:videId" Component={PlayerPage} />
           <Route path="/score" Component={Score} />
-          <Route path="/modal" Component={Modal} />
+          <Route path="/pref" Component={PrefSelect} />
           <Route path="/context" Component={Context} />
           <Route path="/form" Component={Context} />
           <Route path="*" Component={NotFoundPage} />
