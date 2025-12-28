@@ -27,7 +27,7 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
   const [selectedCityName, setSelectedCityName] = useState<string>('');
   const [selectedZipCode, setSelectedZipCode] = useState<string>('');
   const [selectedTownName, setSelectedTownName] = useState<string>('');
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     fetchCities();
@@ -40,6 +40,7 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
       return;
     }
     setMode('city');
+    setIsLoading(true); 
     try {
       const { data, status } = await axios.get(
         `http://57.182.154.123/api/prefs/${prefCode}/cities`
@@ -52,6 +53,8 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
     } catch (error) {
       console.error('Error fetching data: ', error);
       setCities([]);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -94,7 +97,7 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
     setTowns([]);
     setSelectedZipCode('');
     setSelectedCityName(cityName);
-
+    setIsLoading(true);
     try {
       const { data, status } = await axios.get(
         `http://57.182.154.123/api/cities/${cityCode}/towns`
@@ -107,6 +110,8 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
     } catch (error) {
       console.error('Error fetching aza data: ', error);
       setTowns([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -153,7 +158,17 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
         </div>
 
         {mode === 'city' && (
-        <div className="p-2 h-64 overflow-auto">
+        <div id="city_block" className="p-2 h-64 overflow-auto">
+        {isLoading ? (
+          // ローディング中の表示
+          <div className="flex items-center justify-center h-full">
+            <div className="flex flex-col items-center">
+              {/* CSSスピナー */}
+              <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500"></div>
+              <p className="mt-4 text-gray-600 font-medium">読み込み中...</p>
+            </div>
+          </div>
+        ) : (
           <div className="mt-3 mb-8">
             <ul className="flex gap-3 flex-wrap flex-start">
               {cities.map((city) => (
@@ -178,12 +193,23 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
               ))}
             </ul>
           </div>
+          )}
         </div>
         )}
 
         {/* town選択 */}
         {mode === 'town' && (
-        <div className="p-2 h-64 overflow-auto">
+        <div id="town_block" className="p-2 h-64 overflow-auto">
+        {isLoading ? (
+          // ローディング中の表示
+          <div className="flex items-center justify-center h-full">
+            <div className="flex flex-col items-center">
+              {/* CSSスピナー */}
+              <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500"></div>
+              <p className="mt-4 text-gray-600 font-medium">読み込み中...</p>
+            </div>
+          </div>
+        ) : (
           <div className="mt-3 mb-8">
             <ul className="flex gap-3 flex-wrap flex-start">
               {towns.map((town:Town) => (
@@ -208,6 +234,7 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
               ))}
             </ul>
           </div>
+          )}
         </div>
         )}
 
