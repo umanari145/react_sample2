@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import * as _ from 'lodash';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -20,33 +20,31 @@ interface ModalParams {
 
 const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) => {
   const [cities, setCities] = useState<City[]>([]);
+  const [selectedCityCode, setSelectedCityCode] = useState<string>('');
 
   useEffect(() => {
-    const fetchCities = async () => {
-      if (!prefCode) {
+    fetchCities();
+  }, [isOpen, prefCode]);
+
+  const fetchCities = async () => {
+    if (!prefCode) {
+      setCities([]);
+      return;
+    }
+    try {
+      const { data, status } = await axios.get(
+        `http://57.182.154.123/api/prefs/${prefCode}/cities`
+      );
+      if (status === 200 && data.success) {
+        setCities(data.data);
+      } else {
         setCities([]);
-        return;
       }
-      try {
-        const { data, status } = await axios.get(
-          `http://57.182.154.123/api/prefs/${prefCode}/cities`
-        );
-        if (status === 200 && data.success) {
-          setCities(data.data);
-        } else {
-          setCities([]);
-        }
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-        setCities([]);
-      }
-    };
-    if (isOpen) {
-      fetchCities();
-    } else {
+    } catch (error) {
+      console.error('Error fetching data: ', error);
       setCities([]);
     }
-  }, [isOpen, prefCode]);
+  };
 
   if (!isOpen) {
     return null;
@@ -55,6 +53,15 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
   const handleClose = () => {
     setCities([]);
     setClose();
+  };
+
+  const handleRegister = () => {
+    if (!selectedCityCode) {
+      alert('市区町村を選択してください');
+      return;
+    }
+    console.log('市区町村コードを表示しています');
+    console.log(selectedCityCode);
   };
 
   return (
@@ -95,6 +102,8 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
                     className="peer hidden"
                     type="radio"
                     name="city_select"
+                    checked={selectedCityCode === city.city_code}
+                    onChange={() => setSelectedCityCode(city.city_code)}
                     value={city.city_code}
                     id={`city-${city.city_code}`}
                   />
@@ -117,8 +126,10 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
           >
             キャンセル
           </button>
-          <button className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-            登録
+          <button 
+            className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              onClick={handleRegister}
+          >登録
           </button>
         </div>
       </div>
