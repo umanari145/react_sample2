@@ -22,7 +22,9 @@ interface ModalParams {
 const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) => {
   const [mode, setMode] = useState<string>('');
   const [cities, setCities] = useState<City[]>([]);
+  const [cityFilter, setCityFilter] = useState<string>('');
   const [towns, setTowns] = useState<Town[]>([]);
+  const [townFilter, setTownFilter] = useState<string>('');
   const [selectedCityCode, setSelectedCityCode] = useState<string>('');
   const [selectedCityName, setSelectedCityName] = useState<string>('');
   const [selectedZipCode, setSelectedZipCode] = useState<string>('');
@@ -73,6 +75,8 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
     setSelectedCityName('');
     setSelectedZipCode('');
     setSelectedTownName('');
+    setCityFilter('');
+    setTownFilter('');
     setClose();
   };
 
@@ -121,11 +125,42 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
     setSelectedCityName('');
     setSelectedZipCode('');
     setSelectedTownName('');
+    setTownFilter('');
   };
 
   const handleTownSelect = (townName: string, zipCode: string) => {
     setSelectedTownName(townName);
     setSelectedZipCode(zipCode);
+  };
+
+  // citiesをフィルタリングする関数
+  const selectFilterCities = (value: string) => {
+    setCityFilter(value);
+  };
+
+  // townsをフィルタリングする関数
+  const selectFilterTowns = (value: string) => {
+    setTownFilter(value);
+  };
+
+  // フィルタリングされたcitiesを取得
+  const getFilteredCities = (): City[] => {
+    if (!cityFilter) {
+      return cities;
+    }
+    return cities.filter(city => 
+      city.city_name.includes(cityFilter)
+    );
+  };
+
+  // フィルタリングされたtownsを取得
+  const getFilteredTowns = (): Town[] => {
+    if (!townFilter) {
+      return towns;
+    }
+    return towns.filter(town => 
+      town.town_name.includes(townFilter)
+    );
   };
 
   return (
@@ -136,7 +171,30 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
       />
       <div className="relative bg-white rounded-lg shadow-xl x-4 z-10 w-1/2">
         <div className="flex items-center justify-between p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-800">{selectedZipCode} {prefName} {selectedCityName} {selectedTownName}</h2>
+          <h2 className="text-xl font-semibold text-gray-800">{selectedZipCode} {prefName} {selectedCityName} {selectedTownName}</h2>     
+          
+          {/* cityモードの時のフィルタリング入力欄 */}
+          {mode === 'city' && (
+            <input
+              type="text"
+              className="border rounded px-3 py-2 w-64 mr-3"
+              placeholder="市区町村名で絞り込み"
+              value={cityFilter}
+              onChange={e => selectFilterCities(e.target.value)} 
+            />
+          )}
+          
+          {/* townモードの時のフィルタリング入力欄 */}
+          {mode === 'town' && (
+            <input
+              type="text"
+              className="border rounded px-3 py-2 w-64 mr-3"
+              placeholder="町名で絞り込み"
+              value={townFilter}
+              onChange={e => selectFilterTowns(e.target.value)} 
+            />
+          )}
+          
           <button
             className="text-gray-400 hover:text-gray-600"
             onClick={handleClose}
@@ -170,8 +228,13 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
           </div>
         ) : (
           <div className="mt-3 mb-8">
-            <ul className="flex gap-3 flex-wrap flex-start">
-              {cities.map((city) => (
+            {getFilteredCities().length === 0 ? (
+              <div className="text-center text-gray-500 py-8">
+                該当する市区町村が見つかりません
+              </div>
+            ) : (
+              <ul className="flex gap-3 flex-wrap flex-start">
+                {getFilteredCities().map((city) => (
                 <li key={`li-city-${city.city_code}`}>
                   <input
                     className="peer hidden"
@@ -190,8 +253,9 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
                     {city.city_name}
                   </label>
                 </li>
-              ))}
-            </ul>
+                ))}
+              </ul>
+            )}
           </div>
           )}
         </div>
@@ -211,8 +275,13 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
           </div>
         ) : (
           <div className="mt-3 mb-8">
-            <ul className="flex gap-3 flex-wrap flex-start">
-              {towns.map((town:Town) => (
+            {getFilteredTowns().length === 0 ? (
+              <div className="text-center text-gray-500 py-8">
+                該当する町名が見つかりません
+              </div>
+            ) : (
+              <ul className="flex gap-3 flex-wrap flex-start">
+                {getFilteredTowns().map((town:Town) => (
                 <li key={`li-town-${town.zip_code}`}>
                   <input
                     className="peer hidden"
@@ -231,8 +300,9 @@ const FormModal: FC<ModalParams> = ({ isOpen, setClose, prefName, prefCode }) =>
                     {town.town_name}
                   </label>
                 </li>
-              ))}
-            </ul>
+                ))}
+              </ul>
+            )}
           </div>
           )}
         </div>
@@ -301,7 +371,7 @@ export const PrefSelect: FC = () => {
     <Wrapper>
       <div className="mt-4 mb-8">
         <ul className="flex gap-3 flex-wrap">
-          {prefs.map((pref) => (
+          {prefs.map((pref:Pref) => (
             <li key={`li-pref-${pref.pref_code}`}>
               <input
                 className="peer hidden"
