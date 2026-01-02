@@ -90,6 +90,11 @@ export const MemberList: FC = () => {
       (!isNaN(targetScore) && member.score >= targetScore);
 
     // 3. ステータス検索: シンプルに比較
+    // 3. ステータス検索: シンプルに比較
+    // searchActive（検索用ステータス入力値）が空文字の場合はすべてマッチさせます。
+    // 'active'や'non-active'などが指定された場合は、その内容に応じてメンバーのstatusと比較し、一致条件を作ります。
+    // もしsearchActiveが'active'なら、member.status === 'active' のみマッチ
+    // それ以外(''の場合はすべて、'active'でなければactive以外)はmember.status !== 'active'がマッチします。
     const matchesActive =
       searchActive === '' ||
       (searchActive === 'active' 
