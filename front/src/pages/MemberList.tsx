@@ -67,6 +67,32 @@ export const MemberList: FC = () => {
   const [members, setMembers] = useState<Member[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [searchName, setSearchName] = useState<string>('');
+  const [searchScore, setSearchScore] = useState<string>('');
+  const [searchActive, setSearchActive] = useState<string>('');
+
+  const filteredMembers = members.filter((member: Member) => {
+    // 1. 名前検索: 大文字小文字を区別しない（Case-insensitive）
+    const matchesName = member.name
+      .toLowerCase()
+      .includes(searchName.toLowerCase());
+
+    // 2. スコア検索: 数値に変換した値を保持して比較
+    const targetScore = searchScore !== '' ? Number(searchScore) : null;
+    const matchesScore =
+      targetScore === null || 
+      (!isNaN(targetScore) && member.score >= targetScore);
+
+    // 3. ステータス検索: シンプルに比較
+    const matchesActive =
+      searchActive === '' ||
+      (searchActive === 'active' 
+        ? member.status === 'active' 
+        : member.status !== 'active');
+
+    return matchesName && matchesScore && matchesActive;
+  });
+
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -95,7 +121,43 @@ export const MemberList: FC = () => {
     <Wrapper>
       <div className="mt-4 mb-8">
         <h1 className="text-2xl font-bold mb-4">メンバー一覧</h1>
-        
+        <div className="mb-4 flex flex-wrap gap-4 items-end">
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">名前で検索</label>
+            <input
+              type="text"
+              className="border border-gray-300 rounded px-3 py-2"
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+              placeholder="例: 田中"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">スコアで検索</label>
+            <input
+              type="number"
+              className="border border-gray-300 rounded px-3 py-2"
+              value={searchScore}
+              onChange={(e) => setSearchScore(e.target.value)}
+              placeholder="例: 85"
+              min="0"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">ステータス</label>
+            <select
+              className="border border-gray-300 rounded px-3 py-2"
+              value={searchActive}
+              onChange={(e) => setSearchActive(e.target.value)}
+            >
+              <option value="">すべて</option>
+              <option value="active">アクティブ</option>
+              <option value="inactive">非アクティブ</option>
+            </select>
+          </div>
+        </div>
+
+
         {isLoading && (
           <div className="flex items-center justify-center py-8">
             <div className="flex flex-col items-center">
@@ -111,13 +173,13 @@ export const MemberList: FC = () => {
           </div>
         )}
 
-        {!isLoading && !error && members.length === 0 && (
+        {!isLoading && !error && filteredMembers.length === 0 && (
           <div className="text-center text-gray-500 py-8">
             メンバーが見つかりません
           </div>
         )}
 
-        {!isLoading && members.length > 0 && (
+        {!isLoading && filteredMembers.length > 0 && (
           <div className="bg-white rounded-lg shadow">
             <table className="min-w-full">
               <thead className="bg-gray-50">
@@ -137,7 +199,7 @@ export const MemberList: FC = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {members.map((member: Member) => (
+                {filteredMembers.map((member: Member) => (
                   <tr key={`member-${member.member_id}`} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {member.member_id}
