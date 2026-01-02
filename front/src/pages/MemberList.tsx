@@ -79,6 +79,12 @@ export const MemberList: FC = () => {
 
     // 2. スコア検索: 数値に変換した値を保持して比較
     const targetScore = searchScore !== '' ? Number(searchScore) : null;
+    // ||（論理和演算子）は、左側の値が「偽」と評価される場合に右側の値を返すという特徴があります。
+    // ここで使われている「targetScore === null || (!isNaN(targetScore) && member.score >= targetScore)」の例の場合、
+    // まず「targetScore === null」を評価し、これがtrue（=検索条件が未入力のとき）であれば、その時点でtrueとなり
+    // 以降は評価されません。
+    // 逆にfalse（=targetScoreがnull以外＝検索スコアが入力済み）であれば、右側「(!isNaN(targetScore) && member.score >= targetScore)」が評価されます。
+    // つまり、「検索スコアが未入力なら常にマッチ」、「入力済みの場合はmember.scoreがその値以上のときマッチ」、という絞り込み判定になります。
     const matchesScore =
       targetScore === null || 
       (!isNaN(targetScore) && member.score >= targetScore);
