@@ -13,6 +13,7 @@ import { NotFoundPage } from './pages/Youtube/NotFoundPage';
 import { Score } from './pages/Score';
 import { Context } from './pages/Context';
 import { PrefSelect } from './pages/PrefSelect';
+import { MemberList } from './pages/MemberList';
 
 // 全体に適用
 const GlobalStyle = createGlobalStyle`
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/youtube/:videId" Component={PlayerPage} />
           <Route path="/score" Component={Score} />
           <Route path="/pref" Component={PrefSelect} />
+          <Route path="/member" Component={MemberList} />
           <Route path="/context" Component={Context} />
           <Route path="/form" Component={Context} />
           <Route path="*" Component={NotFoundPage} />
