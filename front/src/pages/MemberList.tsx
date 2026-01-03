@@ -107,6 +107,8 @@ export const MemberList: FC = () => {
   });
 
   // ソート処理
+  // 目的: filteredMembers配列のシャローコピー（浅いコピー）を作成
+  // 理由: JavaScriptのsort()メソッドは元の配列を直接変更する（破壊的メソッド）ため、元の配列を保護するために新しい配列を作る必要があります
   const sortedMembers = [...filteredMembers].sort((a, b) => {
     if (sortOrder === 'asc') {
       return a.score - b.score; // 昇順
