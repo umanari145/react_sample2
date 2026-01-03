@@ -70,7 +70,9 @@ export const MemberList: FC = () => {
   const [searchName, setSearchName] = useState<string>('');
   const [searchScore, setSearchScore] = useState<string>('');
   const [searchActive, setSearchActive] = useState<string>('');
+  const [sortOrder, setSortOrder] = useState<'none' | 'asc' | 'desc'>('none');
 
+  // フィルタリング処理
   const filteredMembers = members.filter((member: Member) => {
     // 1. 名前検索: 大文字小文字を区別しない（Case-insensitive）
     const matchesName = member.name
@@ -103,6 +105,27 @@ export const MemberList: FC = () => {
 
     return matchesName && matchesScore && matchesActive;
   });
+
+  // ソート処理
+  const sortedMembers = [...filteredMembers].sort((a, b) => {
+    if (sortOrder === 'asc') {
+      return a.score - b.score; // 昇順
+    } else if (sortOrder === 'desc') {
+      return b.score - a.score; // 降順
+    }
+    return 0; // ソートなし
+  });
+
+  // ソートボタンのクリックハンドラー
+  const handleSortToggle = () => {
+    if (sortOrder === 'none') {
+      setSortOrder('asc');
+    } else if (sortOrder === 'asc') {
+      setSortOrder('desc');
+    } else {
+      setSortOrder('none');
+    }
+  };
 
 
   useEffect(() => {
@@ -184,13 +207,13 @@ export const MemberList: FC = () => {
           </div>
         )}
 
-        {!isLoading && !error && filteredMembers.length === 0 && (
+        {!isLoading && !error && sortedMembers.length === 0 && (
           <div className="text-center text-gray-500 py-8">
             メンバーが見つかりません
           </div>
         )}
 
-        {!isLoading && filteredMembers.length > 0 && (
+        {!isLoading && sortedMembers.length > 0 && (
           <div className="bg-white rounded-lg shadow">
             <table className="min-w-full">
               <thead className="bg-gray-50">
@@ -202,15 +225,26 @@ export const MemberList: FC = () => {
                     名前
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    スコア
+                    <div className="flex items-center gap-2">
+                      <span>スコア</span>
+                      <button
+                        onClick={handleSortToggle}
+                        className="px-2 py-1 text-xs bg-blue-100 hover:bg-blue-200 rounded transition-colors"
+                      >
+                        {sortOrder === 'none' && '並替'}
+                        {sortOrder === 'asc' && '↑昇順'}
+                        {sortOrder === 'desc' && '↓降順'}
+                      </button>
+                    </div>
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     ステータス
                   </th>
+                  
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {filteredMembers.map((member: Member) => (
+                {sortedMembers.map((member: Member) => (
                   <tr key={`member-${member.member_id}`} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {member.member_id}
