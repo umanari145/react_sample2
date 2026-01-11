@@ -30,6 +30,8 @@ http://localhost:3000/ でアクセスできる
       - Markdown.tsx マークダウンエディタ (参考 React × TypeScript で手を動かながら学ぶ！モダンなフロントエンド開発入門 https://www.techpit.jp/courses/111 )
       - Youtube 【React + Atomic Design】作りながら学ぶ！コンポーネント指向開発[https://www.techpit.jp/courses/109/]→ 途中から郵便番号
       - Score 成績のフィルタリング
+      - Pref 都道県のモーダル(都道府県→市区町村→字)
+      - member メンバーの一覧とスクリーニング、ソート
     - App.tsx React の app 部分
     - index.tsx エントリーポイント
 - lib
